@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>go学习(十五) 文件操作 | CHENSHONE的博客</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="description" content="前端一世，草木一秋">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    
+    <link rel="preload" href="/assets/css/0.styles.f0298f74.css" as="style"><link rel="preload" href="/assets/js/app.c997d1d4.js" as="script"><link rel="preload" href="/assets/js/3.a08962ca.js" as="script"><link rel="preload" href="/assets/js/1.8cb32bd8.js" as="script"><link rel="preload" href="/assets/js/52.83dd0fbb.js" as="script"><link rel="prefetch" href="/assets/js/10.306f3fea.js"><link rel="prefetch" href="/assets/js/11.0ac44ead.js"><link rel="prefetch" href="/assets/js/12.5e963489.js"><link rel="prefetch" href="/assets/js/13.557ae658.js"><link rel="prefetch" href="/assets/js/14.ca49cad6.js"><link rel="prefetch" href="/assets/js/15.c339c116.js"><link rel="prefetch" href="/assets/js/16.0755f8ce.js"><link rel="prefetch" href="/assets/js/17.9723ac6c.js"><link rel="prefetch" href="/assets/js/18.c90862fe.js"><link rel="prefetch" href="/assets/js/19.0878a7c6.js"><link rel="prefetch" href="/assets/js/20.f494f4c6.js"><link rel="prefetch" href="/assets/js/21.cc1aca3c.js"><link rel="prefetch" href="/assets/js/22.ded9c720.js"><link rel="prefetch" href="/assets/js/23.7cab5ed1.js"><link rel="prefetch" href="/assets/js/24.17e5782c.js"><link rel="prefetch" href="/assets/js/25.12399c4c.js"><link rel="prefetch" href="/assets/js/26.74229045.js"><link rel="prefetch" href="/assets/js/27.d7f9e85f.js"><link rel="prefetch" href="/assets/js/28.1eb5d371.js"><link rel="prefetch" href="/assets/js/29.95079447.js"><link rel="prefetch" href="/assets/js/30.8f8b55ca.js"><link rel="prefetch" href="/assets/js/31.97aec1c5.js"><link rel="prefetch" href="/assets/js/32.8846b16c.js"><link rel="prefetch" href="/assets/js/33.500b36f8.js"><link rel="prefetch" href="/assets/js/34.1223ee61.js"><link rel="prefetch" href="/assets/js/35.682a1a1c.js"><link rel="prefetch" href="/assets/js/36.ad4af4f4.js"><link rel="prefetch" href="/assets/js/37.803fbe95.js"><link rel="prefetch" href="/assets/js/38.d164eb79.js"><link rel="prefetch" href="/assets/js/39.e2c3a98c.js"><link rel="prefetch" href="/assets/js/4.33b6eb70.js"><link rel="prefetch" href="/assets/js/40.9bbdc043.js"><link rel="prefetch" href="/assets/js/41.c09ed556.js"><link rel="prefetch" href="/assets/js/42.352305a2.js"><link rel="prefetch" href="/assets/js/43.de7cead9.js"><link rel="prefetch" href="/assets/js/44.bfaedb2c.js"><link rel="prefetch" href="/assets/js/45.de67c197.js"><link rel="prefetch" href="/assets/js/46.e0e21ced.js"><link rel="prefetch" href="/assets/js/47.3bf16f53.js"><link rel="prefetch" href="/assets/js/48.974652ea.js"><link rel="prefetch" href="/assets/js/49.ce5070c2.js"><link rel="prefetch" href="/assets/js/5.b6c7d5bc.js"><link rel="prefetch" href="/assets/js/50.4ab15ddf.js"><link rel="prefetch" href="/assets/js/51.4da29420.js"><link rel="prefetch" href="/assets/js/53.b36f5c7a.js"><link rel="prefetch" href="/assets/js/54.0e51af4b.js"><link rel="prefetch" href="/assets/js/55.4cd9ed54.js"><link rel="prefetch" href="/assets/js/56.d91d287c.js"><link rel="prefetch" href="/assets/js/57.5f62d000.js"><link rel="prefetch" href="/assets/js/58.2ab204cb.js"><link rel="prefetch" href="/assets/js/59.bf2775f1.js"><link rel="prefetch" href="/assets/js/6.c947969e.js"><link rel="prefetch" href="/assets/js/60.0a3d0f67.js"><link rel="prefetch" href="/assets/js/61.a602b1ec.js"><link rel="prefetch" href="/assets/js/62.82ea6053.js"><link rel="prefetch" href="/assets/js/63.bcf39b37.js"><link rel="prefetch" href="/assets/js/64.41317a08.js"><link rel="prefetch" href="/assets/js/65.7d623e77.js"><link rel="prefetch" href="/assets/js/66.dfdbf6bc.js"><link rel="prefetch" href="/assets/js/67.82918070.js"><link rel="prefetch" href="/assets/js/68.6f555061.js"><link rel="prefetch" href="/assets/js/69.e0986284.js"><link rel="prefetch" href="/assets/js/7.38a7eca5.js"><link rel="prefetch" href="/assets/js/70.6d662f79.js"><link rel="prefetch" href="/assets/js/71.e0e7643a.js"><link rel="prefetch" href="/assets/js/8.aa54c58b.js"><link rel="prefetch" href="/assets/js/9.ccefc8ce.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.f0298f74.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar" data-v-1156296a><div data-v-1156296a><div id="loader-wrapper" class="loading-wrapper" data-v-d48f4d20 data-v-1156296a data-v-1156296a><div class="loader-main" data-v-d48f4d20><div data-v-d48f4d20></div><div data-v-d48f4d20></div><div data-v-d48f4d20></div><div data-v-d48f4d20></div></div> <!----> <!----></div> <div class="password-shadow password-wrapper-out" style="display:none;" data-v-4e82dffc data-v-1156296a data-v-1156296a><h3 class="title" data-v-4e82dffc data-v-4e82dffc>CHENSHONE的博客</h3> <p class="description" data-v-4e82dffc data-v-4e82dffc>前端一世，草木一秋</p> <label id="box" class="inputBox" data-v-4e82dffc data-v-4e82dffc><input type="password" value="" data-v-4e82dffc> <span data-v-4e82dffc>Konck! Knock!</span> <button data-v-4e82dffc>OK</button></label> <div class="footer" data-v-4e82dffc data-v-4e82dffc><span data-v-4e82dffc><i class="iconfont reco-theme" data-v-4e82dffc></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-4e82dffc>vuePress-theme-reco</a></span> <span data-v-4e82dffc><i class="iconfont reco-copyright" data-v-4e82dffc></i> <a data-v-4e82dffc><span data-v-4e82dffc>CHENSHONE</span>
+            
+          <span data-v-4e82dffc>2020 - </span>
+          2021
+        </a></span></div></div> <div class="hide" data-v-1156296a><header class="navbar" data-v-1156296a><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="/logo.png" alt="CHENSHONE的博客" class="logo"> <span class="site-name">CHENSHONE的博客</span></a> <div class="links"><!----> <div class="search-box"><i class="iconfont reco-search"></i> <input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link"><i class="iconfont reco-home"></i>
+  主页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-category"></i>
+      分类
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/categories/算法学习/" class="nav-link"><i class="undefined"></i>
+  算法学习
+</a></li><li class="dropdown-item"><!----> <a href="/categories/后端学习/" class="nav-link"><i class="undefined"></i>
+  后端学习
+</a></li><li class="dropdown-item"><!----> <a href="/categories/前端学习/" class="nav-link"><i class="undefined"></i>
+  前端学习
+</a></li></ul></div></div><div class="nav-item"><a href="/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  标签
+</a></div><div class="nav-item"><a href="/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  时轴
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-other"></i>
+      关于我
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://github.com/chenshone" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-github"></i>
+  GitHub
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://juejin.im/user/5c6f59f66fb9a049e063f252" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-juejin"></i>
+  掘金
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask" data-v-1156296a></div> <aside class="sidebar" data-v-1156296a><div class="personal-info-wrapper" data-v-828910c6 data-v-1156296a><img src="/avatar.png" alt="author-avatar" class="personal-img" data-v-828910c6> <h3 class="name" data-v-828910c6>
+    CHENSHONE
+  </h3> <div class="num" data-v-828910c6><div data-v-828910c6><h3 data-v-828910c6>60</h3> <h6 data-v-828910c6>文章</h6></div> <div data-v-828910c6><h3 data-v-828910c6>13</h3> <h6 data-v-828910c6>标签</h6></div></div> <ul class="social-links" data-v-828910c6></ul> <hr data-v-828910c6></div> <nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link"><i class="iconfont reco-home"></i>
+  主页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-category"></i>
+      分类
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/categories/算法学习/" class="nav-link"><i class="undefined"></i>
+  算法学习
+</a></li><li class="dropdown-item"><!----> <a href="/categories/后端学习/" class="nav-link"><i class="undefined"></i>
+  后端学习
+</a></li><li class="dropdown-item"><!----> <a href="/categories/前端学习/" class="nav-link"><i class="undefined"></i>
+  前端学习
+</a></li></ul></div></div><div class="nav-item"><a href="/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  标签
+</a></div><div class="nav-item"><a href="/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  时轴
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-other"></i>
+      关于我
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://github.com/chenshone" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-github"></i>
+  GitHub
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://juejin.im/user/5c6f59f66fb9a049e063f252" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-juejin"></i>
+  掘金
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <!----></nav> <!----> </aside> <div class="password-shadow password-wrapper-in" style="display:none;" data-v-4e82dffc data-v-1156296a><h3 class="title" data-v-4e82dffc data-v-4e82dffc>go学习(十五) 文件操作</h3> <!----> <label id="box" class="inputBox" data-v-4e82dffc data-v-4e82dffc><input type="password" value="" data-v-4e82dffc> <span data-v-4e82dffc>Konck! Knock!</span> <button data-v-4e82dffc>OK</button></label> <div class="footer" data-v-4e82dffc data-v-4e82dffc><span data-v-4e82dffc><i class="iconfont reco-theme" data-v-4e82dffc></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-4e82dffc>vuePress-theme-reco</a></span> <span data-v-4e82dffc><i class="iconfont reco-copyright" data-v-4e82dffc></i> <a data-v-4e82dffc><span data-v-4e82dffc>CHENSHONE</span>
+            
+          <span data-v-4e82dffc>2020 - </span>
+          2021
+        </a></span></div></div> <div data-v-1156296a><main class="page"><section><div class="page-title"><h1 class="title">go学习(十五) 文件操作</h1> <div data-v-1ff7123e><i class="iconfont reco-account" data-v-1ff7123e><span data-v-1ff7123e>CHENSHONE</span></i> <i class="iconfont reco-date" data-v-1ff7123e><span data-v-1ff7123e>2020/6/30</span></i> <!----> <i class="tags iconfont reco-tag" data-v-1ff7123e><span class="tag-item" data-v-1ff7123e>golang</span></i></div></div> <div class="theme-reco-content content__default"><h2 id="打开和关闭文件"><a href="#打开和关闭文件" class="header-anchor">#</a> 打开和关闭文件</h2> <p><code>os.Open()</code>函数能够打开一个文件，返回一个<code>*File</code>和一个<code>err</code>。对得到的文件实例调用<code>close()</code>方法能够关闭文件。</p> <div class="language-go line-numbers-mode"><pre class="language-go"><code><span class="token keyword">import</span> <span class="token punctuation">(</span>
+	<span class="token string">&quot;fmt&quot;</span>
+	<span class="token string">&quot;os&quot;</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token comment">// 读取当前目录下的test.txt文件</span>
+	file<span class="token punctuation">,</span> err <span class="token operator">:=</span> os<span class="token punctuation">.</span><span class="token function">Open</span><span class="token punctuation">(</span><span class="token string">&quot;./test.txt&quot;</span><span class="token punctuation">)</span>
+
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+		<span class="token keyword">return</span>
+	<span class="token punctuation">}</span>
+
+	file<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br></div></div><h2 id="读取文件"><a href="#读取文件" class="header-anchor">#</a> 读取文件</h2> <p><code>file.Read()</code> 函数能够读取一个文件</p> <div class="language-go line-numbers-mode"><pre class="language-go"><code><span class="token keyword">func</span> <span class="token punctuation">(</span><span class="token operator">*</span>os<span class="token punctuation">.</span>File<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Read</span><span class="token punctuation">(</span>b <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>n <span class="token builtin">int</span><span class="token punctuation">,</span> err <span class="token builtin">error</span><span class="token punctuation">)</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>接收一个字节切片，返回读取的字节数和可能出现的错误，读到文件末尾时会返回 <code>0</code> 和 <code>io.EOF</code>。</p> <div class="language-go line-numbers-mode"><pre class="language-go"><code><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+	<span class="token string">&quot;fmt&quot;</span>
+	<span class="token string">&quot;io&quot;</span>
+	<span class="token string">&quot;os&quot;</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token comment">// 读取当前目录下的test.txt文件</span>
+	file<span class="token punctuation">,</span> err <span class="token operator">:=</span> os<span class="token punctuation">.</span><span class="token function">Open</span><span class="token punctuation">(</span><span class="token string">&quot;./test.txt&quot;</span><span class="token punctuation">)</span>
+
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+		<span class="token keyword">return</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token comment">// 使用defer 程序结束时关闭文件</span>
+	<span class="token keyword">defer</span> file<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+	<span class="token comment">// 读取文件</span>
+
+	<span class="token keyword">var</span> tmp <span class="token punctuation">[</span><span class="token number">128</span><span class="token punctuation">]</span><span class="token builtin">byte</span>
+	<span class="token comment">// 循环读取</span>
+	<span class="token keyword">for</span> <span class="token punctuation">{</span>
+		n<span class="token punctuation">,</span> err <span class="token operator">:=</span> file<span class="token punctuation">.</span><span class="token function">Read</span><span class="token punctuation">(</span>tmp<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+		<span class="token keyword">if</span> err <span class="token operator">==</span> io<span class="token punctuation">.</span>EOF <span class="token punctuation">{</span>
+			fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;读完了&quot;</span><span class="token punctuation">)</span>
+			<span class="token keyword">return</span>
+		<span class="token punctuation">}</span>
+
+		<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+			fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+			<span class="token keyword">return</span>
+		<span class="token punctuation">}</span>
+
+		fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">&quot;读了%d个字节&quot;</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token function">string</span><span class="token punctuation">(</span>tmp<span class="token punctuation">[</span><span class="token punctuation">:</span>n<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+		<span class="token comment">// 如果小于128，说明本次是读取的最后一次</span>
+		<span class="token keyword">if</span> n <span class="token operator">&lt;</span> <span class="token number">128</span> <span class="token punctuation">{</span>
+			<span class="token keyword">return</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br></div></div><h3 id="bufio读取文件"><a href="#bufio读取文件" class="header-anchor">#</a> bufio读取文件</h3> <p><code>bufio</code>是在file的基础上封装了一层API，支持更多的功能。</p> <div class="language-go line-numbers-mode"><pre class="language-go"><code><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+	<span class="token string">&quot;bufio&quot;</span>
+	<span class="token string">&quot;fmt&quot;</span>
+	<span class="token string">&quot;io&quot;</span>
+	<span class="token string">&quot;os&quot;</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token comment">// 读取当前目录下的test.txt文件</span>
+	file<span class="token punctuation">,</span> err <span class="token operator">:=</span> os<span class="token punctuation">.</span><span class="token function">Open</span><span class="token punctuation">(</span><span class="token string">&quot;./test.txt&quot;</span><span class="token punctuation">)</span>
+
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+		<span class="token keyword">return</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token comment">// 使用defer 程序结束时关闭文件</span>
+	<span class="token keyword">defer</span> file<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+	<span class="token comment">// 读取文件</span>
+	reader <span class="token operator">:=</span> bufio<span class="token punctuation">.</span><span class="token function">NewReader</span><span class="token punctuation">(</span>file<span class="token punctuation">)</span>
+	<span class="token comment">// 循环读取</span>
+	<span class="token keyword">for</span> <span class="token punctuation">{</span>
+		<span class="token comment">// 读到换行结束一次的读取(每次读取一行)</span>
+		line<span class="token punctuation">,</span> err <span class="token operator">:=</span> reader<span class="token punctuation">.</span><span class="token function">ReadString</span><span class="token punctuation">(</span><span class="token string">'\n'</span><span class="token punctuation">)</span> <span class="token comment">// 注意：是字符要用单引号</span>
+
+		<span class="token keyword">if</span> err <span class="token operator">==</span> io<span class="token punctuation">.</span>EOF <span class="token punctuation">{</span>
+			fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;读完了&quot;</span><span class="token punctuation">)</span>
+			<span class="token keyword">return</span>
+		<span class="token punctuation">}</span>
+
+		<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+			fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+			<span class="token keyword">return</span>
+		<span class="token punctuation">}</span>
+
+		fmt<span class="token punctuation">.</span><span class="token function">Print</span><span class="token punctuation">(</span>line<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br></div></div><h3 id="ioutil读取整个文件"><a href="#ioutil读取整个文件" class="header-anchor">#</a> ioutil读取整个文件</h3> <div class="language-go line-numbers-mode"><pre class="language-go"><code><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+	<span class="token string">&quot;fmt&quot;</span>
+	<span class="token string">&quot;io/ioutil&quot;</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	content<span class="token punctuation">,</span> err <span class="token operator">:=</span> ioutil<span class="token punctuation">.</span><span class="token function">ReadFile</span><span class="token punctuation">(</span><span class="token string">&quot;./test.txt&quot;</span><span class="token punctuation">)</span>
+
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+		<span class="token keyword">return</span>
+	<span class="token punctuation">}</span>
+
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token function">string</span><span class="token punctuation">(</span>content<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br></div></div><h2 id="文件写入"><a href="#文件写入" class="header-anchor">#</a> 文件写入</h2> <p><code>os.OpenFile()</code>函数能够以指定模式打开文件，从而实现文件写入相关功能。</p> <div class="language-go line-numbers-mode"><pre class="language-go"><code><span class="token keyword">func</span> os<span class="token punctuation">.</span><span class="token function">OpenFile</span><span class="token punctuation">(</span>name <span class="token builtin">string</span><span class="token punctuation">,</span> flag <span class="token builtin">int</span><span class="token punctuation">,</span> perm os<span class="token punctuation">.</span>FileMode<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token operator">*</span>os<span class="token punctuation">.</span>File<span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>name: 要打开的文件名</p> <p>flag: 打开文件的模式</p> <table><thead><tr><th>模式</th> <th>含义</th></tr></thead> <tbody><tr><td>os.O_RDONLY</td> <td>只读</td></tr> <tr><td>os.O_RDWR</td> <td>读写</td></tr> <tr><td>os.O_WRONLY</td> <td>只写</td></tr> <tr><td>os.O_CREATE</td> <td>创建文件</td></tr> <tr><td>os.O_TRUNC</td> <td>清空</td></tr> <tr><td>os.O_APPEND</td> <td>追加</td></tr></tbody></table> <p>这些常量其实是一些数字</p> <p>perm: 文件权限，一个八进制数。r(读) 04、 w(写) 02、 x(执行) 01。</p> <h3 id="write和writestring"><a href="#write和writestring" class="header-anchor">#</a> Write和WriteString</h3> <div class="language-go line-numbers-mode"><pre class="language-go"><code><span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// flag可以用或运算实现多个模式</span>
+	file<span class="token punctuation">,</span> err <span class="token operator">:=</span> os<span class="token punctuation">.</span><span class="token function">OpenFile</span><span class="token punctuation">(</span><span class="token string">&quot;test.txt&quot;</span><span class="token punctuation">,</span> os<span class="token punctuation">.</span>O_CREATE<span class="token operator">|</span>os<span class="token punctuation">.</span>O_TRUNC<span class="token operator">|</span>os<span class="token punctuation">.</span>O_WRONLY<span class="token punctuation">,</span> <span class="token number">0666</span><span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+		<span class="token keyword">return</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token keyword">defer</span> file<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+	str <span class="token operator">:=</span> <span class="token string">&quot;hello world&quot;</span>
+
+	file<span class="token punctuation">.</span><span class="token function">Write</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span>str<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">// 写入字节切片</span>
+	file<span class="token punctuation">.</span><span class="token function">WriteString</span><span class="token punctuation">(</span>str<span class="token punctuation">)</span>   <span class="token comment">// 直接写入字符串</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br></div></div><h3 id="bufio-newwriter"><a href="#bufio-newwriter" class="header-anchor">#</a> bufio.NewWriter</h3> <div class="language-go line-numbers-mode"><pre class="language-go"><code><span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	file<span class="token punctuation">,</span> err <span class="token operator">:=</span> os<span class="token punctuation">.</span><span class="token function">OpenFile</span><span class="token punctuation">(</span><span class="token string">&quot;test.txt&quot;</span><span class="token punctuation">,</span> os<span class="token punctuation">.</span>O_CREATE<span class="token operator">|</span>os<span class="token punctuation">.</span>O_TRUNC<span class="token operator">|</span>os<span class="token punctuation">.</span>O_WRONLY<span class="token punctuation">,</span> <span class="token number">0666</span><span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+		<span class="token keyword">return</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token keyword">defer</span> file<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+	writer <span class="token operator">:=</span> bufio<span class="token punctuation">.</span><span class="token function">NewWriter</span><span class="token punctuation">(</span>file<span class="token punctuation">)</span>
+	str <span class="token operator">:=</span> <span class="token string">&quot;hello world&quot;</span>
+
+	<span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
+		<span class="token comment">// 将数据写入缓存</span>
+		writer<span class="token punctuation">.</span><span class="token function">WriteString</span><span class="token punctuation">(</span>str<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	<span class="token comment">// 将缓存内容写入文件</span>
+	writer<span class="token punctuation">.</span><span class="token function">Flush</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br></div></div><h3 id="ioutil-writefile"><a href="#ioutil-writefile" class="header-anchor">#</a> ioutil.WriteFile</h3> <div class="language-go line-numbers-mode"><pre class="language-go"><code><span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	str <span class="token operator">:=</span> <span class="token string">&quot;hello world&quot;</span>
+	err <span class="token operator">:=</span> ioutil<span class="token punctuation">.</span><span class="token function">WriteFile</span><span class="token punctuation">(</span><span class="token string">&quot;test.txt&quot;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span>str<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">0666</span><span class="token punctuation">)</span>
+
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+		<span class="token keyword">return</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br></div></div></div></section> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">Last Updated: </span> <span class="time">2021/4/22下午8:49:55</span></div></footer> <!----> <div class="comments-wrapper"><!----></div> <ul class="side-bar sub-sidebar-wrapper" style="width:12rem;" data-v-70334359><li class="level-2" data-v-70334359><a href="/views/beStu/go/2020/063003_file.html#打开和关闭文件" class="sidebar-link reco-side-打开和关闭文件" data-v-70334359>打开和关闭文件</a></li><li class="level-2" data-v-70334359><a href="/views/beStu/go/2020/063003_file.html#读取文件" class="sidebar-link reco-side-读取文件" data-v-70334359>读取文件</a></li><li class="level-3" data-v-70334359><a href="/views/beStu/go/2020/063003_file.html#bufio读取文件" class="sidebar-link reco-side-bufio读取文件" data-v-70334359>bufio读取文件</a></li><li class="level-3" data-v-70334359><a href="/views/beStu/go/2020/063003_file.html#ioutil读取整个文件" class="sidebar-link reco-side-ioutil读取整个文件" data-v-70334359>ioutil读取整个文件</a></li><li class="level-2" data-v-70334359><a href="/views/beStu/go/2020/063003_file.html#文件写入" class="sidebar-link reco-side-文件写入" data-v-70334359>文件写入</a></li><li class="level-3" data-v-70334359><a href="/views/beStu/go/2020/063003_file.html#write和writestring" class="sidebar-link reco-side-write和writestring" data-v-70334359>Write和WriteString</a></li><li class="level-3" data-v-70334359><a href="/views/beStu/go/2020/063003_file.html#bufio-newwriter" class="sidebar-link reco-side-bufio-newwriter" data-v-70334359>bufio.NewWriter</a></li><li class="level-3" data-v-70334359><a href="/views/beStu/go/2020/063003_file.html#ioutil-writefile" class="sidebar-link reco-side-ioutil-writefile" data-v-70334359>ioutil.WriteFile</a></li></ul></main> <!----></div></div></div></div><div class="global-ui"><div id="goTop" class="hide-cat" data-v-4973f866></div><canvas id="vuepress-canvas-cursor"></canvas><div class="kanbanniang" data-v-5775ee02><div class="banniang-container" style="display:;" data-v-5775ee02><div class="messageBox" style="right:68px;bottom:190px;display:none;" data-v-5775ee02>
+      欢迎来到 CHENSHONE的博客
+    </div> <div class="operation" style="right:90px;bottom:40px;display:none;" data-v-5775ee02><i class="kbnfont kbn-ban-home ban-home" data-v-5775ee02></i> <i class="kbnfont kbn-ban-message message" data-v-5775ee02></i> <i class="kbnfont kbn-ban-close close" data-v-5775ee02></i> <a target="_blank" href="https://vuepress-theme-reco.recoluan.com/views/plugins/kanbanniang.html" data-v-5775ee02><i class="kbnfont kbn-ban-info info" data-v-5775ee02></i></a> <i class="kbnfont kbn-ban-theme skin" style="display:none;" data-v-5775ee02></i></div> <canvas id="banniang" width="150" height="220" class="live2d" style="right:90px;bottom:-20px;opacity:0.9;" data-v-5775ee02></canvas></div> <div class="showBanNiang" style="display:none;" data-v-5775ee02>
+    看板娘
+  </div></div></div></div>
+    <script src="/assets/js/app.c997d1d4.js" defer></script><script src="/assets/js/3.a08962ca.js" defer></script><script src="/assets/js/1.8cb32bd8.js" defer></script><script src="/assets/js/52.83dd0fbb.js" defer></script>
+  </body>
+</html>
