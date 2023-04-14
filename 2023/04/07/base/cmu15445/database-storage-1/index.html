@@ -405,7 +405,7 @@
 <li>对磁盘的读/写是昂贵的，所以必须小心管理，以避免大的停顿和性能下降。</li>
 <li>磁盘上的随机访问通常比顺序访问慢得多，所以DBMS希望最大限度地提高顺序访问。</li>
 </ol>
-<h2 id="面向磁盘的DBMS设计"><a href="#面向磁盘的DBMS设计" class="headerlink" title="面向磁盘的DBMS设计"></a>面向磁盘的DBMS设计</h2><img src="https://cdn.jsdelivr.net/gh/chenshone/myPictureHost@main/learning-notes/image-20230414143832682.png" alt="image-20230414143832682" style="zoom: 33%;">
+<h2 id="面向磁盘的DBMS设计"><a href="#面向磁盘的DBMS设计" class="headerlink" title="面向磁盘的DBMS设计"></a>面向磁盘的DBMS设计</h2><img src="https://cdn.jsdelivr.net/gh/chenshone/myPictureHost@main/learning-notes/image-20230414143832682.png" alt="" style="zoom: 33%;">
 
 <p>如上图所示，在磁盘中，db里的数据按页存储，有一个directory来标记不同的页分别在哪里，每个页中都有一个header来存放该页的元数据。</p>
 <p>上图的例子是想要拿到page#2，先从disk中将directory读到内存的buffer池中，然后根据directory找到page#2，读到buffer池中，执行器疫情再分析page#2。</p>
@@ -440,12 +440,12 @@
 <p>有两种方法来表示堆文件：</p>
 <ul>
 <li><p>链表</p>
-<img src="https://cdn.jsdelivr.net/gh/chenshone/myPictureHost@main/learning-notes/image-20230414155819030.png" alt="image-20230414155819030" style="zoom:50%;">
+<img src="https://cdn.jsdelivr.net/gh/chenshone/myPictureHost@main/learning-notes/image-20230414155819030.png" alt="" style="zoom:50%;">
 </li>
 <li><p>页目录</p>
-<img src="https://cdn.jsdelivr.net/gh/chenshone/myPictureHost@main/learning-notes/image-20230414155954329.png" alt="image-20230414155954329" style="zoom:50%;"></li>
+<img src="https://cdn.jsdelivr.net/gh/chenshone/myPictureHost@main/learning-notes/image-20230414155954329.png" alt="" style="zoom:50%;"></li>
 </ul>
-<h4 id="页布局-page-layout"><a href="#页布局-page-layout" class="headerlink" title="页布局 (page layout)"></a>页布局 (page layout)</h4><p><img src="https://cdn.jsdelivr.net/gh/chenshone/myPictureHost@main/learning-notes/image-20230414160241162.png" alt="image-20230414160241162"></p>
+<h4 id="页布局-page-layout"><a href="#页布局-page-layout" class="headerlink" title="页布局 (page layout)"></a>页布局 (page layout)</h4><p><img src="https://cdn.jsdelivr.net/gh/chenshone/myPictureHost@main/learning-notes/image-20230414160241162.png"></p>
 <p>对于任何页面存储架构，我们需要决定如何组织页面内的数据。</p>
 <blockquote>
 <p>  我们假设只是在存储tuple。</p>
@@ -453,11 +453,11 @@
 <p>有两种方法：</p>
 <ul>
 <li><p>面向元组（常用）</p>
-<p><img src="https://cdn.jsdelivr.net/gh/chenshone/myPictureHost@main/learning-notes/image-20230414161233622.png" alt="image-20230414161233622"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/chenshone/myPictureHost@main/learning-notes/image-20230414161233622.png"></p>
 <p>slot从头往后存，实际数据从尾往前存。当删除/新增一个元组时，只需要修改对于的slot指针即可。此外，对于存储碎片问题，可以将存储的tuple迁移到前面去，接着改变相应的slot指针即可，如下图所示。</p>
-<img src="https://cdn.jsdelivr.net/gh/chenshone/myPictureHost@main/learning-notes/image-20230414161918255.png" alt="image-20230414161918255" style="zoom:33%;">
+<img src="https://cdn.jsdelivr.net/gh/chenshone/myPictureHost@main/learning-notes/image-20230414161918255.png" alt="" style="zoom:33%;">
 
-<img src="https://cdn.jsdelivr.net/gh/chenshone/myPictureHost@main/learning-notes/image-20230414161947887.png" alt="image-20230414161947887" style="zoom:33%;">
+<img src="https://cdn.jsdelivr.net/gh/chenshone/myPictureHost@main/learning-notes/image-20230414161947887.png" alt="" style="zoom:33%;">
 
 <p>DBMS需要一种方法来跟踪单个tuple。<br>每个元组都被分配一个唯一的记录标识符。</p>
 <ul>
@@ -469,7 +469,7 @@
 </li>
 </ul>
 <h4 id="元组布局-tuple-layout"><a href="#元组布局-tuple-layout" class="headerlink" title="元组布局 (tuple layout)"></a>元组布局 (tuple layout)</h4><p>tuple本质上是一组byte序列，DBMS的职责就是将这些bytes解释成属性类型和值。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/chenshone/myPictureHost@main/learning-notes/image-20230414163138674.png" alt="image-20230414163138674"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/chenshone/myPictureHost@main/learning-notes/image-20230414163138674.png"></p>
 <h3 id="2-DBMS是如何管理其内存并从磁盘上来回移动数据"><a href="#2-DBMS是如何管理其内存并从磁盘上来回移动数据" class="headerlink" title="2. DBMS是如何管理其内存并从磁盘上来回移动数据"></a>2. DBMS是如何管理其内存并从磁盘上来回移动数据</h3>
                 
             </div>
