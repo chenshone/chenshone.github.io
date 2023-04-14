@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>CMU15445-存储引擎</title>
+      <link href="/2023/04/07/base/cmu15445/database-storage-1/"/>
+      <url>/2023/04/07/base/cmu15445/database-storage-1/</url>
+      
+        <content type="html"><![CDATA[<h2 id="基于磁盘的体系结构"><a href="#基于磁盘的体系结构" class="headerlink" title="基于磁盘的体系结构"></a>基于磁盘的体系结构</h2><p>数据库中的数据主要存储在磁盘（non-volatile disk，非易失的）中，DBMS主要负责数据在磁盘和内存（non-volatile and volatile storage）中来回移动。</p><p>如下图所示，存储体系结构越往上速度越快、容量越小、价格越贵。</p><p>内存及往上存储结构支持<strong>随机访问</strong>，访问地址最小单位是<strong>字节</strong>，也就说可以读取单个字节数据；ssd及以下存储结构<strong>顺序访问</strong>，访问地址最小单位是<strong>块</strong>，存取最小也是一块，比如只想存1B的数据，也需要占一块的空间。</p><p><img src="https://fastly.jsdelivr.net/gh/chenshone/myPictureHost@main/learning-notes/image-20230407163424707.png" alt="存储体系结构"></p><h3 id="顺序访问与随机访问"><a href="#顺序访问与随机访问" class="headerlink" title="顺序访问与随机访问"></a>顺序访问与随机访问</h3><p>通常情况下，在磁盘上，随机访问都比顺序访问要慢的多。因此DBMS希望最大化顺序访问。</p><p>也就是说，在写入数据时，应该尽量减少随机写，让数据存储在连续块（block）中。</p><p>同时分配多个页面（page）称为区间（extent）。</p><h3 id="设计目标"><a href="#设计目标" class="headerlink" title="设计目标"></a>设计目标</h3><ol><li>应当允许DBMS管理超过内存大小的数据库规模</li><li>对磁盘的读/写是昂贵的，所以必须小心管理，以避免大的停顿和性能下降。</li><li>磁盘上的随机访问通常比顺序访问慢得多，所以DBMS希望最大限度地提高顺序访问。</li></ol><h2 id="面向磁盘的DBMS设计"><a href="#面向磁盘的DBMS设计" class="headerlink" title="面向磁盘的DBMS设计"></a>面向磁盘的DBMS设计</h2><img src="https://cdn.jsdelivr.net/gh/chenshone/myPictureHost@main/learning-notes/image-20230414143832682.png" alt="image-20230414143832682" style="zoom: 33%;"><p>如上图所示，在磁盘中，db里的数据按页存储，有一个directory来标记不同的页分别在哪里，每个页中都有一个header来存放该页的元数据。</p><p>上图的例子是想要拿到page#2，先从disk中将directory读到内存的buffer池中，然后根据directory找到page#2，读到buffer池中，执行器疫情再分析page#2。</p><h3 id="DBMS应该自己控制存取而不是交给OS"><a href="#DBMS应该自己控制存取而不是交给OS" class="headerlink" title="DBMS应该自己控制存取而不是交给OS"></a>DBMS应该自己控制存取而不是交给OS</h3><p>DBMS（几乎）总是想自己控制事情，并能比操作系统做得更好。</p><ol><li>以正确的顺序将脏页冲到磁盘。</li><li>专门的预取。</li><li>缓冲区替换策略。</li><li>线程/进程调度。</li></ol><p>OS并不知道DBMS对数据的操作具体是如何的，遇到缺页的情况，盲目的替换，会导致极差的性能。因此DBMS应该自主控制。</p><h2 id="数据库存储需要考虑的两大问题"><a href="#数据库存储需要考虑的两大问题" class="headerlink" title="数据库存储需要考虑的两大问题"></a>数据库存储需要考虑的两大问题</h2><h3 id="1-DBMS如何在磁盘上的文件中表示数据库"><a href="#1-DBMS如何在磁盘上的文件中表示数据库" class="headerlink" title="1. DBMS如何在磁盘上的文件中表示数据库"></a>1. DBMS如何在磁盘上的文件中表示数据库</h3><h4 id="文件存储-file-storage"><a href="#文件存储-file-storage" class="headerlink" title="文件存储 (file storage)"></a>文件存储 (file storage)</h4><p>DBMS将数据库作为一个或多个文件存储在磁盘上，通常是一种专有格式。操作系统对这些文件的内容一无所知。</p><p>一个页面是一个固定大小的数据块。</p><ul><li>它可以包含图元、元数据、索引、日志记录…。</li><li>大多数系统不混合页面类型。</li><li>有些系统要求一个页面是自解释的，也就说页面中包含描述该页面的信息。</li></ul><p>每个页面都有一个唯一的标识符。DBMS使用一个中介层将页面ID映射到物理位置。</p><p>在DBMS中的 “页”有三种不同的概念：</p><ul><li>硬件页（通常为4KB）</li><li>操作系统页(通常为4KB)</li><li>数据库页(512B-16KB)</li></ul><p>一个硬件页是存储设备可以容纳的最大数据块的数据块，存储设备可以保证故障安全写入的最大数据块。</p><p><strong>堆文件</strong>是一个无序的页面集合，其tuples是以随机顺序存储的。</p><ul><li>创建/获取/写入/删除页面</li><li>还必须支持对所有页面进行迭代。</li></ul><p>有两种方法来表示堆文件：</p><ul><li><p>链表</p><img src="https://cdn.jsdelivr.net/gh/chenshone/myPictureHost@main/learning-notes/image-20230414155819030.png" alt="image-20230414155819030" style="zoom:50%;"></li><li><p>页目录</p><img src="https://cdn.jsdelivr.net/gh/chenshone/myPictureHost@main/learning-notes/image-20230414155954329.png" alt="image-20230414155954329" style="zoom:50%;"></li></ul><h4 id="页布局-page-layout"><a href="#页布局-page-layout" class="headerlink" title="页布局 (page layout)"></a>页布局 (page layout)</h4><p><img src="https://cdn.jsdelivr.net/gh/chenshone/myPictureHost@main/learning-notes/image-20230414160241162.png" alt="image-20230414160241162"></p><p>对于任何页面存储架构，我们需要决定如何组织页面内的数据。</p><blockquote><p>  我们假设只是在存储tuple。</p></blockquote><p>有两种方法：</p><ul><li><p>面向元组（常用）</p><p><img src="https://cdn.jsdelivr.net/gh/chenshone/myPictureHost@main/learning-notes/image-20230414161233622.png" alt="image-20230414161233622"></p><p>slot从头往后存，实际数据从尾往前存。当删除/新增一个元组时，只需要修改对于的slot指针即可。此外，对于存储碎片问题，可以将存储的tuple迁移到前面去，接着改变相应的slot指针即可，如下图所示。</p><img src="https://cdn.jsdelivr.net/gh/chenshone/myPictureHost@main/learning-notes/image-20230414161918255.png" alt="image-20230414161918255" style="zoom:33%;"><img src="https://cdn.jsdelivr.net/gh/chenshone/myPictureHost@main/learning-notes/image-20230414161947887.png" alt="image-20230414161947887" style="zoom:33%;"><p>DBMS需要一种方法来跟踪单个tuple。<br>每个元组都被分配一个唯一的记录标识符。</p><ul><li>最常见的是：page_id offset/slot</li><li>也可以包含文件位置信息。</li></ul></li><li><p>日志结构化</p></li></ul><h4 id="元组布局-tuple-layout"><a href="#元组布局-tuple-layout" class="headerlink" title="元组布局 (tuple layout)"></a>元组布局 (tuple layout)</h4><p>tuple本质上是一组byte序列，DBMS的职责就是将这些bytes解释成属性类型和值。</p><p><img src="https://cdn.jsdelivr.net/gh/chenshone/myPictureHost@main/learning-notes/image-20230414163138674.png" alt="image-20230414163138674"></p><h3 id="2-DBMS是如何管理其内存并从磁盘上来回移动数据"><a href="#2-DBMS是如何管理其内存并从磁盘上来回移动数据" class="headerlink" title="2. DBMS是如何管理其内存并从磁盘上来回移动数据"></a>2. DBMS是如何管理其内存并从磁盘上来回移动数据</h3>]]></content>
+      
+      
+      <categories>
+          
+          <category> database </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> cmu15445 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>基于docker搭建hadoop平台</title>
       <link href="/2023/04/01/util/docker-deploy-hadoop/"/>
       <url>/2023/04/01/util/docker-deploy-hadoop/</url>
