@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="CMU15445-存储引擎, CHENSHONE的博客">
+    <meta name="keywords" content="CMU15445-存储引擎-1, CHENSHONE的博客">
     <meta name="description" content="基于磁盘的体系结构数据库中的数据主要存储在磁盘（non-volatile disk，非易失的）中，DBMS主要负责数据在磁盘和内存（non-volatile and volatile storage）中来回移动。
 如下图所示，存储体系结构越">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,7 +18,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>CMU15445-存储引擎 | CHENSHONE的博客</title>
+    <title>CMU15445-存储引擎-1 | CHENSHONE的博客</title>
     <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/chenshone/chenshone.github.io/favicon.png">
     
     <style>
@@ -300,12 +300,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/chenshone/chenshone.github.io/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/chenshone/chenshone.github.io/medias/featureimages/12.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">CMU15445-存储引擎</h1>
+                    <h1 class="description center-align post-title">CMU15445-存储引擎-1</h1>
                 </div>
             </div>
         </div>
@@ -363,14 +363,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.1k
+                    1.3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    3 分
+                    4 分
                 </div>
                 
 
@@ -466,8 +466,27 @@
 </ul>
 </li>
 <li><p>日志结构化</p>
+<p>DBMS不在页面中存储tuple，而只存储日志记录。<br>系统将日志记录附加到数据库如何被修改的文件中：</p>
+<ul>
+<li>插入存储整个元组。</li>
+<li>删除标记了元组的删除。</li>
+<li>更新只包含被修改的属性的delta。</li>
+</ul>
 </li>
 </ul>
+<img src="https://cdn.jsdelivr.net/gh/chenshone/myPictureHost@main/learning-notes/image-20230417103929860.png" style="zoom:50%;">
+
+<p>​		为了读取一条记录，DBMS向后扫描日志并 “重新创建 “元组以找到它所需要的东西。</p>
+<img src="https://cdn.jsdelivr.net/gh/chenshone/myPictureHost@main/learning-notes/image-20230417104209153.png" style="zoom:50%;">
+
+<p>​		也可以构建索引来加速log回放</p>
+<img src="https://cdn.jsdelivr.net/gh/chenshone/myPictureHost@main/learning-notes/image-20230417104431409.png" style="zoom:50%;">
+
+<p>​		显然，基于日志的数据库非常冗余，所以通常会周期性的压缩数据。上图可以被压缩为如下图所示的状态。</p>
+<img src="https://cdn.jsdelivr.net/gh/chenshone/myPictureHost@main/learning-notes/image-20230417104749430.png" style="zoom:50%;">
+
+<p>​		可以看到，上述的压缩中，<code>delete id=4</code>是压缩不了的，因为id=4的创建并不在同一个页中。那么为了解决上述问题，可以采用Level Compaction或Universal Comapction。 </p>
+<p><img src="https://cdn.jsdelivr.net/gh/chenshone/myPictureHost@main/learning-notes/image-20230417105806285.png"></p>
 <h4 id="元组布局-tuple-layout"><a href="#元组布局-tuple-layout" class="headerlink" title="元组布局 (tuple layout)"></a>元组布局 (tuple layout)</h4><p>tuple本质上是一组byte序列，DBMS的职责就是将这些bytes解释成属性类型和值。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/chenshone/myPictureHost@main/learning-notes/image-20230414163138674.png"></p>
 <h3 id="2-DBMS是如何管理其内存并从磁盘上来回移动数据"><a href="#2-DBMS是如何管理其内存并从磁盘上来回移动数据" class="headerlink" title="2. DBMS是如何管理其内存并从磁盘上来回移动数据"></a>2. DBMS是如何管理其内存并从磁盘上来回移动数据</h3>
@@ -531,18 +550,17 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/04/07/base/cmu15445/database-storage-1/">
+                <a href="/2023/04/17/base/cmu15445/database-storage-2/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/chenshone/chenshone.github.io/medias/featureimages/0.jpg" class="responsive-img" alt="CMU15445-存储引擎">
+                        <img src="https://cdn.jsdelivr.net/gh/chenshone/chenshone.github.io/medias/featureimages/11.jpg" class="responsive-img" alt="CMU15445-存储引擎-2">
                         
-                        <span class="card-title">CMU15445-存储引擎</span>
+                        <span class="card-title">CMU15445-存储引擎-2</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -552,9 +570,9 @@
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-04-07
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-04-17
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -567,7 +585,6 @@
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
@@ -806,7 +823,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">6.5k</span>
+                        class="white-color">7.1k</span>
             
             
             
